@@ -29,6 +29,4 @@ def StartSearch():
             except:
                 print("Could not request the image.")
 
-    StartSearch()
-
 StartSearch()
