@@ -15,18 +15,18 @@ def StartSearch():
 
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
-    else:
-        for item in links:
+
+    for item in links:
+        try:
+            img_obj = requests.get(item.attrs["href"])
+            print("Getting", item.attrs["href"])
+            title = item.attrs["href"].split("/")[-1]
             try:
-                img_obj = requests.get(item.attrs["href"])
-                print("Getting", item.attrs["href"])
-                title = item.attrs["href"].split("/")[-1]
-                try:
-                    img = Image.open(BytesIO(img_obj.content))
-                    img.save("./" + dir_name + "/" + title, img.format)
-                except:
-                    print("Could not save the image.")
+                img = Image.open(BytesIO(img_obj.content))
+                img.save("./" + dir_name + "/" + title, img.format)
             except:
-                print("Could not request the image.")
+                print("Could not save the image.")
+        except:
+            print("Could not request the image.")
 
 StartSearch()
